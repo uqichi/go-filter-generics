@@ -6,26 +6,42 @@ import (
 )
 
 func main() {
-	ls := []int{1, 2, 3, 4, 5, 4, 3, 2, 1}
+	li := []int{1, 2, 3, 4, 5, 4, 3, 2, 1}
+	ls := []string{"a", "b", "c", "d", "e", "d", "c", "b", "a"}
 
-	f := func(i int) bool {
-		if i == 3 {
-			return true
-		}
-		return false
-	}
-
-	// expt. 1 filter plain
+	// expt. 1: int filter plain
 	{
-		res := filter(ls, f)
+		res := filter(li, func(i int) bool {
+			if i == 3 {
+				return true
+			}
+			return false
+		})
 		fmt.Printf("res1: %+v\n", res)
 	}
 
-	// expt. 2 filter generics-like using interfaces
+	// expt. 2-a: int filter generics-like using interfaces
 	{
-		res := filterWithIface(ls, f)
+		res := filterWithIface(li, func(i int) bool {
+			if i == 3 {
+				return true
+			}
+			return false
+		})
 		resInt := res.([]int)
-		fmt.Printf("res2: %+v\n", resInt)
+		fmt.Printf("res2-a: %+v\n", resInt)
+	}
+
+	// expt. 2-b: string filter generics-like using interfaces
+	{
+		res := filterWithIface(ls, func(s string) bool {
+			if s == "c" {
+				return true
+			}
+			return false
+		})
+		resString := res.([]string)
+		fmt.Printf("res2-b: %+v\n", resString)
 	}
 }
 

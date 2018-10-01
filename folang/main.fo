@@ -1,0 +1,44 @@
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	li := []int{1, 2, 3, 4, 5, 4, 3, 2, 1}
+	ls := []string{"a", "b", "c", "d", "e", "d", "c", "b", "a"}
+
+	// expt. 3-a: int filter generics with fo lang
+	{
+		res := filter[int](li, func(i int) bool {
+			if i == 3 {
+				return true
+			}
+			return false
+		})
+		fmt.Printf("res3-a: %+v\n", res)
+	}
+
+	// expt. 3-b: int filter generics with fo lang
+	{
+		res := filter[string](ls, func(s string) bool {
+			if s == "c" {
+				return true
+			}
+			return false
+		})
+		fmt.Printf("res3-b: %+v\n", res)
+	}
+}
+
+func filter[T](ls []T, f func(T) bool) []T {
+	ret := make([]T, 0)
+
+	for _, v := range ls {
+		if f(v) {
+			ret = append(ret, v)
+		}
+	}
+
+	return ret
+}
