@@ -11,13 +11,24 @@ func main() {
 
 	// expt. 1: int filter plain
 	{
-		res := filter(li, func(i int) bool {
+		res := filterInt(li, func(i int) bool {
 			if i == 3 {
 				return true
 			}
 			return false
 		})
-		fmt.Printf("res1: %+v\n", res)
+		fmt.Printf("res1-a: %+v\n", res)
+	}
+
+	// expt. 2: string filter plain
+	{
+		res := filterString(ls, func(s string) bool {
+			if s == "c" {
+				return true
+			}
+			return false
+		})
+		fmt.Printf("res1-b: %+v\n", res)
 	}
 
 	// expt. 2-a: int filter generics-like using interfaces
@@ -45,8 +56,20 @@ func main() {
 	}
 }
 
-func filter(ls []int, f func(i int) bool) []int {
+func filterInt(ls []int, f func(i int) bool) []int {
 	ret := make([]int, 0)
+
+	for _, v := range ls {
+		if f(v) {
+			ret = append(ret, v)
+		}
+	}
+
+	return ret
+}
+
+func filterString(ls []string, f func(s string) bool) []string {
+	ret := make([]string, 0)
 
 	for _, v := range ls {
 		if f(v) {
